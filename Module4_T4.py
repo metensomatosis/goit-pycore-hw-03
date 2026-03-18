@@ -6,8 +6,6 @@ def get_birthday_for_year(birthday: date, year: int) -> date:
     try:
         return birthday.replace(year=year)
     except ValueError:
-        # Якщо дата 29.02, а рік не високосний,
-        # вважаємо день народження 28.02
         return date(year, 2, 28)
 
 
@@ -17,7 +15,6 @@ def get_upcoming_birthdays(users: List[Dict[str, str]]) -> List[Dict[str, str]]:
 
     for user in users:
         birthday: date = datetime.strptime(user["birthday"], "%Y.%m.%d").date()
-
         birthday_this_year: date = get_birthday_for_year(birthday, today.year)
 
         if birthday_this_year < today:
@@ -44,11 +41,10 @@ def get_upcoming_birthdays(users: List[Dict[str, str]]) -> List[Dict[str, str]]:
 
 
 if __name__ == "__main__":
-    users = [
+    users: List[Dict[str, str]] = [
         {"name": "John Doe", "birthday": "1985.01.23"},
         {"name": "Jane Smith", "birthday": "1990.01.27"},
         {"name": "Leap User", "birthday": "1992.02.29"},
     ]
 
-    upcoming_birthdays = get_upcoming_birthdays(users)
-    print("Список привітань на цьому тижні:", upcoming_birthdays)
+    print(get_upcoming_birthdays(users))
