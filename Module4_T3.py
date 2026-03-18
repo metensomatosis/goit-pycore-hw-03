@@ -2,10 +2,7 @@ import re
 
 
 def normalize_phone(phone_number: str) -> str:
-    cleaned_number = re.sub(r"[^\d+]", "", phone_number.strip())
-
-    if cleaned_number.startswith("+"):
-        return cleaned_number
+    cleaned_number = re.sub(r"\D", "", phone_number)
 
     if cleaned_number.startswith("380"):
         return "+" + cleaned_number
@@ -27,5 +24,4 @@ if __name__ == "__main__":
     ]
 
     sanitized_numbers = [normalize_phone(num) for num in raw_numbers]
-    print("Нормалізовані номери телефонів для SMS-розсилки:")
-    print(sanitized_numbers)
+    print("Нормалізовані номери телефонів для SMS-розсилки:", sanitized_numbers)
